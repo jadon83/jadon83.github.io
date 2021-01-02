@@ -14,19 +14,20 @@
 
     <body>
 
-        <h1>Combo Maker 3.1</h1>
+        <h1>Combo Maker 3.2</h1>
 
         <p>Select Which Style You Are Using Then Press The Button To Generate A Random Max Hit Combo.</p>
 
         <select id="saberStyles">  
-            <option value="0"> Blue </option>  
-            <option value="1"> Cyan </option>  
-            <option value="2"> Yellow </option>  
-            <option value="3"> Staff </option>  
-            <option value="4"> Dualies </option>  
-            <option value="5"> Red </option> 
-            <option value="6"> Purple </option> 
+            <option value="0"> Blue/Cyan </option>  
+            <option value="1"> Yellow </option>  
+            <option value="2"> Staff/Dualies </option>
+            <option value="3"> Red </option> 
+            <option value="4"> Purple </option> 
         </select>  
+
+        <input type="checkbox" id="halfSwingRadio">
+        <label for="halfSwingRadio">Enable Random Half Swings</label>
 
         <button onclick="makeCombo()">Generate</button>
 
@@ -39,11 +40,29 @@
                 if (selectedStyle.value == 0){
                     var swings = new Array(1, 3, 5, 7, 9, 11);
                     swings[0] = Math.floor((Math.random() * 7) + 1);
-                    for (i = 1; i <= 5; i++) {
-                        do {
-                            swings[i] = Math.floor((Math.random() * 7) + 1);
+                    if (document.getElementById("halfSwingRadio").checked == true)
+                    {
+                        for (i = 1; i <= 5; i++) {
+                            isHalfSwing = Math.floor((Math.random() * 2) + 1);
+                            if (isHalfSwing == 1){
+                                swings[i] = Math.floor((Math.random() * 7) + 8);
+                            }
+                            else{
+                                do {
+                                    swings[i] = Math.floor((Math.random() * 7) + 1);
+                                }
+                                while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
+                            }
                         }
-                        while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
+                    }
+                    else
+                    {
+                        for (i = 1; i <= 5; i++) {
+                            do {
+                                swings[i] = Math.floor((Math.random() * 7) + 1);
+                            }
+                            while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
+                        }
                     }
                     for (i = 0; i <= 5; i++) {
                         if (swings[i] == 1){
@@ -67,51 +86,57 @@
                         else if (swings[i] == 7){
                             swings[i] = "SA";
                         }
+                        else if (swings[i] == 8){
+                            swings[i] = "H-SD";
+                        }
+                        else if (swings[i] == 9){
+                            swings[i] = "H-D";
+                        }
+                        else if (swings[i] == 10){
+                            swings[i] = "H-WD";
+                        }
+                        else if (swings[i] == 11){
+                            swings[i] = "H-W/S";
+                        }
+                        else if (swings[i] == 12){
+                            swings[i] = "H-WA";
+                        }
+                        else if (swings[i] == 13){
+                            swings[i] = "H-A";
+                        }
+                        else if (swings[i] == 14){
+                            swings[i] = "H-SA";
+                        }
                     }
                     document.getElementById("output").innerHTML = swings[0] + ", " + swings[1] + ", " + swings[2] + ", " + swings[3] + ", " + swings[4] + ", " + swings[5];
+
                 }
                 else if (selectedStyle.value == 1){
-                    var swings = new Array(1, 3, 5, 7, 9, 11);
-                    swings[0] = Math.floor((Math.random() * 7) + 1);
-                    for (i = 1; i <= 5; i++) {
-                        do {
-                            swings[i] = Math.floor((Math.random() * 7) + 1);
-                        }
-                        while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
-                    }
-                    for (i = 0; i <= 5; i++) {
-                        if (swings[i] == 1){
-                            swings[i] = "SD";
-                        }
-                        else if (swings[i] == 2){
-                            swings[i] = "D";
-                        }
-                        else if (swings[i] == 3){
-                            swings[i] = "WD";
-                        }
-                        else if (swings[i] == 4){
-                            swings[i] = "W/S";
-                        }
-                        else if (swings[i] == 5){
-                            swings[i] = "WA";
-                        }
-                        else if (swings[i] == 6){
-                            swings[i] = "A";
-                        }
-                        else if (swings[i] == 7){
-                            swings[i] = "SA";
-                        }
-                    }
-                    document.getElementById("output").innerHTML = swings[0] + ", " + swings[1] + ", " + swings[2] + ", " + swings[3] + ", " + swings[4] + ", " + swings[5];
-                }
-                else if (selectedStyle.value == 2){
                     var swings = new Array(1, 3, 5, 7);
                     swings[0] = Math.floor((Math.random() * 7) + 1);
-                    for (i = 1; i <= 3; i++) {
-                        do {
-                            swings[i] = Math.floor((Math.random() * 7) + 1);
+                    if (document.getElementById("halfSwingRadio").checked == true)
+                    {
+                        for (i = 1; i <= 3; i++) {
+                            isHalfSwing = Math.floor((Math.random() * 2) + 1);
+                            if (isHalfSwing == 1){
+                                swings[i] = Math.floor((Math.random() * 7) + 8);
+                            }
+                            else{
+                                do {
+                                    swings[i] = Math.floor((Math.random() * 7) + 1);
+                                }
+                                while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
+                            }
                         }
-                        while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
+                    }
+                    else
+                    {
+                        for (i = 1; i <= 3; i++) {
+                            do {
+                                swings[i] = Math.floor((Math.random() * 7) + 1);
+                            }
+                            while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
+                        }
                     }
                     for (i = 0; i <= 3; i++) {
                         if (swings[i] == 1){
@@ -135,85 +160,129 @@
                         else if (swings[i] == 7){
                             swings[i] = "SA";
                         }
+                        else if (swings[i] == 8){
+                            swings[i] = "H-SD";
+                        }
+                        else if (swings[i] == 9){
+                            swings[i] = "H-D";
+                        }
+                        else if (swings[i] == 10){
+                            swings[i] = "H-WD";
+                        } 
+                        else if (swings[i] == 11){
+                            swings[i] = "H-W/S";
+                        }
+                        else if (swings[i] == 12){
+                            swings[i] = "H-WA";
+                        }
+                        else if (swings[i] == 13){
+                            swings[i] = "H-A";
+                        }
+                        else if (swings[i] == 14){
+                            swings[i] = "H-SA";
+                        }
                     }
                     document.getElementById("output").innerHTML = swings[0] + ", " + swings[1] + ", " + swings[2] + ", " + swings[3];
                 }
+                else if (selectedStyle.value == 2){
+                    var swings = new Array(1, 3, 5, 7, 9);
+                    swings[0] = Math.floor((Math.random() * 7) + 1);
+                    if (document.getElementById("halfSwingRadio").checked == true)
+                    {
+                        for (i = 1; i <= 4; i++) {
+                            isHalfSwing = Math.floor((Math.random() * 2) + 1);
+                            if (isHalfSwing == 1){
+                                swings[i] = Math.floor((Math.random() * 7) + 8);
+                            }
+                            else{
+                                do {
+                                    swings[i] = Math.floor((Math.random() * 7) + 1);
+                                }
+                                while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (i = 1; i <= 4; i++) {
+                            do {
+                                swings[i] = Math.floor((Math.random() * 7) + 1);
+                            }
+                            while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
+                        }
+                    }
+                    for (i = 0; i <= 4; i++) {
+                        if (swings[i] == 1){
+                            swings[i] = "SD";
+                        }
+                        else if (swings[i] == 2){
+                            swings[i] = "D";
+                        }
+                        else if (swings[i] == 3){
+                            swings[i] = "WD";
+                        }
+                        else if (swings[i] == 4){
+                            swings[i] = "W/S";
+                        }
+                        else if (swings[i] == 5){
+                            swings[i] = "WA";
+                        }
+                        else if (swings[i] == 6){
+                            swings[i] = "A";
+                        }
+                        else if (swings[i] == 7){
+                            swings[i] = "SA";
+                        }
+                        else if (swings[i] == 8){
+                            swings[i] = "H-SD";
+                        }
+                        else if (swings[i] == 9){
+                            swings[i] = "H-D";
+                        }
+                        else if (swings[i] == 10){
+                            swings[i] = "H-WD";
+                        } 
+                        else if (swings[i] == 11){
+                            swings[i] = "H-W/S";
+                        }
+                        else if (swings[i] == 12){
+                            swings[i] = "H-WA";
+                        }
+                        else if (swings[i] == 13){
+                            swings[i] = "H-A";
+                        }
+                        else if (swings[i] == 14){
+                            swings[i] = "H-SA";
+                        }
+                    }
+                    document.getElementById("output").innerHTML = swings[0] + ", " + swings[1] + ", " + swings[2] + ", " + swings[3] + ", " + swings[4];
+                }
                 else if (selectedStyle.value == 3){
-                    var swings = new Array(1, 3, 5, 7, 9);
-                    swings[0] = Math.floor((Math.random() * 7) + 1);
-                    for (i = 1; i <= 4; i++) {
-                        do {
-                            swings[i] = Math.floor((Math.random() * 7) + 1);
-                        }
-                        while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
-                    }
-                    for (i = 0; i <= 4; i++) {
-                        if (swings[i] == 1){
-                            swings[i] = "SD";
-                        }
-                        else if (swings[i] == 2){
-                            swings[i] = "D";
-                        }
-                        else if (swings[i] == 3){
-                            swings[i] = "WD";
-                        }
-                        else if (swings[i] == 4){
-                            swings[i] = "W/S";
-                        }
-                        else if (swings[i] == 5){
-                            swings[i] = "WA";
-                        }
-                        else if (swings[i] == 6){
-                            swings[i] = "A";
-                        }
-                        else if (swings[i] == 7){
-                            swings[i] = "SA";
-                        }
-                    }
-                    document.getElementById("output").innerHTML = swings[0] + ", " + swings[1] + ", " + swings[2] + ", " + swings[3] + ", " + swings[4];
-                }
-                else if (selectedStyle.value == 4){
-                    var swings = new Array(1, 3, 5, 7, 9);
-                    swings[0] = Math.floor((Math.random() * 7) + 1);
-                    for (i = 1; i <= 4; i++) {
-                        do {
-                            swings[i] = Math.floor((Math.random() * 7) + 1);
-                        }
-                        while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
-                    }
-                    for (i = 0; i <= 4; i++) {
-                        if (swings[i] == 1){
-                            swings[i] = "SD";
-                        }
-                        else if (swings[i] == 2){
-                            swings[i] = "D";
-                        }
-                        else if (swings[i] == 3){
-                            swings[i] = "WD";
-                        }
-                        else if (swings[i] == 4){
-                            swings[i] = "W/S";
-                        }
-                        else if (swings[i] == 5){
-                            swings[i] = "WA";
-                        }
-                        else if (swings[i] == 6){
-                            swings[i] = "A";
-                        }
-                        else if (swings[i] == 7){
-                            swings[i] = "SA";
-                        }
-                    }
-                    document.getElementById("output").innerHTML = swings[0] + ", " + swings[1] + ", " + swings[2] + ", " + swings[3] + ", " + swings[4];
-                }
-                else if (selectedStyle.value == 5){
                     var swings = new Array(1, 3, 5);
                     swings[0] = Math.floor((Math.random() * 7) + 1);
-                    for (i = 1; i <= 2; i++) {
-                        do {
-                            swings[i] = Math.floor((Math.random() * 7) + 1);
+                    if (document.getElementById("halfSwingRadio").checked == true)
+                    {
+                        for (i = 1; i <= 2; i++) {
+                            isHalfSwing = Math.floor((Math.random() * 2) + 1);
+                            if (isHalfSwing == 1){
+                                swings[i] = Math.floor((Math.random() * 7) + 8);
+                            }
+                            else{
+                                do {
+                                    swings[i] = Math.floor((Math.random() * 7) + 1);
+                                }
+                                while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1 || swings[i] == swings[i-1] - 2 || swings[i] == swings[i-1] + 2 || swings[i] == swings[i-1] - 6  || swings[i] == swings[i-1] + 6);
+                            }
                         }
-                        while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1 || swings[i] == swings[i-1] - 2 || swings[i] == swings[i-1] + 2 || swings[i] == swings[i-1] - 6  || swings[i] == swings[i-1] + 6);
+                    }
+                    else
+                    {
+                        for (i = 1; i <= 2; i++) {
+                            do {
+                                swings[i] = Math.floor((Math.random() * 7) + 1);
+                            }
+                            while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1 || swings[i] == swings[i-1] - 2 || swings[i] == swings[i-1] + 2 || swings[i] == swings[i-1] - 6  || swings[i] == swings[i-1] + 6);
+                        }
                     }
                     for (i = 0; i <= 2; i++) {
                         if (swings[i] == 1){
@@ -236,18 +305,57 @@
                         }
                         else if (swings[i] == 7){
                             swings[i] = "SA";
+                        }
+                        else if (swings[i] == 8){
+                            swings[i] = "H-SD";
+                        }
+                        else if (swings[i] == 9){
+                            swings[i] = "H-D";
+                        }
+                        else if (swings[i] == 10){
+                            swings[i] = "H-WD";
+                        } 
+                        else if (swings[i] == 11){
+                            swings[i] = "H-W/S";
+                        }
+                        else if (swings[i] == 12){
+                            swings[i] = "H-WA";
+                        }
+                        else if (swings[i] == 13){
+                            swings[i] = "H-A";
+                        }
+                        else if (swings[i] == 14){
+                            swings[i] = "H-SA";
                         }
                     }
                     document.getElementById("output").innerHTML = swings[0] + ", " + swings[1] + ", " + swings[2];
                 }
-                else if(selectedStyle.value == 6){
+                else if(selectedStyle.value == 4){
                     var swings = new Array(1, 3, 5);
                     swings[0] = Math.floor((Math.random() * 7) + 1);
-                    for (i = 1; i <= 2; i++) {
-                        do {
-                            swings[i] = Math.floor((Math.random() * 7) + 1);
+                    if (document.getElementById("halfSwingRadio").checked == true)
+                    {
+                        for (i = 1; i <= 2; i++) {
+                            isHalfSwing = Math.floor((Math.random() * 2) + 1);
+                            if (isHalfSwing == 1){
+                                swings[i] = Math.floor((Math.random() * 7) + 8);
+                            }
+                            else{
+                                do {
+                                    swings[i] = Math.floor((Math.random() * 7) + 1);
+                                }
+                                while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1 || swings[i] == swings[i-1] - 1);
+                            }
                         }
-                        while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1 || swings[i] == swings[i-1] - 1);
+                    }
+                    else
+                    {
+                        for (i = 1; i <= 2; i++) {
+                            do {
+                                swings[i] = Math.floor((Math.random() * 7) + 1);
+                            }
+                            while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1 || swings[i] == swings[i-1] - 1);
+                        }
                     }
                     for (i = 0; i <= 2; i++) {
                         if (swings[i] == 1){
@@ -270,6 +378,27 @@
                         }
                         else if (swings[i] == 7){
                             swings[i] = "SA";
+                        }
+                        else if (swings[i] == 8){
+                            swings[i] = "H-SD";
+                        }
+                        else if (swings[i] == 9){
+                            swings[i] = "H-D";
+                        }
+                        else if (swings[i] == 10){
+                            swings[i] = "H-WD";
+                        } 
+                        else if (swings[i] == 11){
+                            swings[i] = "H-W/S";
+                        }
+                        else if (swings[i] == 12){
+                            swings[i] = "H-WA";
+                        }
+                        else if (swings[i] == 13){
+                            swings[i] = "H-A";
+                        }
+                        else if (swings[i] == 14){
+                            swings[i] = "H-SA";
                         }
                     }
                     document.getElementById("output").innerHTML = swings[0] + ", " + swings[1] + ", " + swings[2];
