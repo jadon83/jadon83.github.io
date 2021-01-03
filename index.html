@@ -14,9 +14,11 @@
 
     <body>
 
-        <h1>Combo Maker 4.0</h1>
+        <h1>Combo Maker 4.1</h1>
 
-        <p>Select Which Style You Are Using Then Press The Button To Generate A Random Max Hit Combo.</p>
+        <h3> Made By [LS] Jadon </h3>
+
+        <h2>Select Which Style You Are Using Then Press The Button To Generate A Random Max Hit Combo.</h2>
 
         <select id="saberStyles">  
             <option value="0"> Cyan </option>  
@@ -26,13 +28,21 @@
             <option value="4"> Purple </option> 
         </select>  
 
+        <br>
+
         <input type="checkbox" id="halfSwingRadio">
         <label for="halfSwingRadio">Enable Half Swings</label>
+
+        <br>
 
         <input type="checkbox" id="yawInstructionsRadio">
         <label for="yawInstructionsRadio">Enable Yaw Instructions</label>
 
+        <br>
+
         <button onclick="makeCombo()">Generate</button>
+
+        <br>
 
         <p id="output"></p>
 
@@ -554,6 +564,17 @@
             * {
                 background-color: black;
                 color: white;
+                text-align: center;
+                margin: 10px;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+            }
+
+            #output {
+                border: 1px solid white;
+                display: inline;
+                padding: 5px;
+                color:cyan;
+                white-space: nowrap
             }
 
         </style>
