@@ -39,6 +39,8 @@
                 var selectedStyle = document.getElementById("saberStyles");
                 if (selectedStyle.value == 0){
                     var swings = new Array(1, 3, 5, 7, 9, 11);
+                    var swingsString = new Array("SD", "WD", "WA", "SA", "H-D", "H-W/S");
+                    var swingChanged = false;
                     swings[0] = Math.floor((Math.random() * 7) + 1);
                     if (document.getElementById("halfSwingRadio").checked == true)
                     {
@@ -48,10 +50,18 @@
                                 swings[i] = Math.floor((Math.random() * 7) + 8);
                             }
                             else{
+                                if (swings[i-1] > 7){
+                                    swings[i-1] -= 7;
+                                    swingChanged = true;
+                                }
                                 do {
                                     swings[i] = Math.floor((Math.random() * 7) + 1);
                                 }
                                 while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
+                                if (swingChanged == true){
+                                    swings[i-1] += 7;
+                                    swingChanged = false;
+                                }
                             }
                         }
                     }
@@ -66,53 +76,55 @@
                     }
                     for (i = 0; i <= 5; i++) {
                         if (swings[i] == 1){
-                            swings[i] = "SD";
+                            swingsString[i] = "SD";
                         }
                         else if (swings[i] == 2){
-                            swings[i] = "D";
+                            swingsString[i] = "D";
                         }
                         else if (swings[i] == 3){
-                            swings[i] = "WD";
+                            swingsString[i] = "WD";
                         }
                         else if (swings[i] == 4){
-                            swings[i] = "W/S";
+                            swingsString[i] = "W/S";
                         }
                         else if (swings[i] == 5){
-                            swings[i] = "WA";
+                            swingsString[i] = "WA";
                         }
                         else if (swings[i] == 6){
-                            swings[i] = "A";
+                            swingsString[i] = "A";
                         }
                         else if (swings[i] == 7){
-                            swings[i] = "SA";
+                            swingsString[i] = "SA";
                         }
                         else if (swings[i] == 8){
-                            swings[i] = "H-SD";
+                            swingsString[i] = "H-SD";
                         }
                         else if (swings[i] == 9){
-                            swings[i] = "H-D";
+                            swingsString[i] = "H-D";
                         }
                         else if (swings[i] == 10){
-                            swings[i] = "H-WD";
+                            swingsString[i] = "H-WD";
                         }
                         else if (swings[i] == 11){
-                            swings[i] = "H-W/S";
+                            swingsString[i] = "H-W/S";
                         }
                         else if (swings[i] == 12){
-                            swings[i] = "H-WA";
+                            swingsString[i] = "H-WA";
                         }
                         else if (swings[i] == 13){
-                            swings[i] = "H-A";
+                            swingsString[i] = "H-A";
                         }
                         else if (swings[i] == 14){
-                            swings[i] = "H-SA";
+                            swingsString[i] = "H-SA";
                         }
                     }
-                    document.getElementById("output").innerHTML = swings[0] + ", " + swings[1] + ", " + swings[2] + ", " + swings[3] + ", " + swings[4] + ", " + swings[5];
+                    document.getElementById("output").innerHTML = swingsString[0] + ", " + swingsString[1] + ", " + swingsString[2] + ", " + swingsString[3] + ", " + swingsString[4] + ", " + swingsString[5];
 
                 }
                 else if (selectedStyle.value == 1){
                     var swings = new Array(1, 3, 5, 7);
+                    var swingsString = new Array("SD", "WD", "WA", "SA");
+                    var swingChanged = false;
                     swings[0] = Math.floor((Math.random() * 7) + 1);
                     if (document.getElementById("halfSwingRadio").checked == true)
                     {
@@ -122,10 +134,18 @@
                                 swings[i] = Math.floor((Math.random() * 7) + 8);
                             }
                             else{
+                                if (swings[i-1] > 7){
+                                    swings[i-1] -= 7;
+                                    swingChanged = true;
+                                }
                                 do {
                                     swings[i] = Math.floor((Math.random() * 7) + 1);
                                 }
                                 while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
+                                if (swingChanged == true){
+                                    swings[i-1] += 7;
+                                    swingChanged = false;
+                                }
                             }
                         }
                     }
@@ -140,52 +160,54 @@
                     }
                     for (i = 0; i <= 3; i++) {
                         if (swings[i] == 1){
-                            swings[i] = "SD";
+                            swingsString[i] = "SD";
                         }
                         else if (swings[i] == 2){
-                            swings[i] = "D";
+                            swingsString[i] = "D";
                         }
                         else if (swings[i] == 3){
-                            swings[i] = "WD";
+                            swingsString[i] = "WD";
                         }
                         else if (swings[i] == 4){
-                            swings[i] = "W/S";
+                            swingsString[i] = "W/S";
                         }
                         else if (swings[i] == 5){
-                            swings[i] = "WA";
+                            swingsString[i] = "WA";
                         }
                         else if (swings[i] == 6){
-                            swings[i] = "A";
+                            swingsString[i] = "A";
                         }
                         else if (swings[i] == 7){
-                            swings[i] = "SA";
+                            swingsString[i] = "SA";
                         }
                         else if (swings[i] == 8){
-                            swings[i] = "H-SD";
+                            swingsString[i] = "H-SD";
                         }
                         else if (swings[i] == 9){
-                            swings[i] = "H-D";
+                            swingsString[i] = "H-D";
                         }
                         else if (swings[i] == 10){
-                            swings[i] = "H-WD";
-                        } 
+                            swingsString[i] = "H-WD";
+                        }
                         else if (swings[i] == 11){
-                            swings[i] = "H-W/S";
+                            swingsString[i] = "H-W/S";
                         }
                         else if (swings[i] == 12){
-                            swings[i] = "H-WA";
+                            swingsString[i] = "H-WA";
                         }
                         else if (swings[i] == 13){
-                            swings[i] = "H-A";
+                            swingsString[i] = "H-A";
                         }
                         else if (swings[i] == 14){
-                            swings[i] = "H-SA";
+                            swingsString[i] = "H-SA";
                         }
                     }
-                    document.getElementById("output").innerHTML = swings[0] + ", " + swings[1] + ", " + swings[2] + ", " + swings[3];
+                    document.getElementById("output").innerHTML = swingsString[0] + ", " + swingsString[1] + ", " + swingsString[2] + ", " + swingsString[3];
                 }
                 else if (selectedStyle.value == 2){
                     var swings = new Array(1, 3, 5, 7, 9);
+                    var swingsString = new Array("SD", "WD", "WA", "SA", "H-D");
+                    var swingChanged = false;
                     swings[0] = Math.floor((Math.random() * 7) + 1);
                     if (document.getElementById("halfSwingRadio").checked == true)
                     {
@@ -195,10 +217,18 @@
                                 swings[i] = Math.floor((Math.random() * 7) + 8);
                             }
                             else{
+                                if (swings[i-1] > 7){
+                                    swings[i-1] -= 7;
+                                    swingChanged = true;
+                                }
                                 do {
                                     swings[i] = Math.floor((Math.random() * 7) + 1);
                                 }
                                 while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
+                                if (swingChanged == true){
+                                    swings[i-1] += 7;
+                                    swingChanged = false;
+                                }
                             }
                         }
                     }
@@ -213,52 +243,54 @@
                     }
                     for (i = 0; i <= 4; i++) {
                         if (swings[i] == 1){
-                            swings[i] = "SD";
+                            swingsString[i] = "SD";
                         }
                         else if (swings[i] == 2){
-                            swings[i] = "D";
+                            swingsString[i] = "D";
                         }
                         else if (swings[i] == 3){
-                            swings[i] = "WD";
+                            swingsString[i] = "WD";
                         }
                         else if (swings[i] == 4){
-                            swings[i] = "W/S";
+                            swingsString[i] = "W/S";
                         }
                         else if (swings[i] == 5){
-                            swings[i] = "WA";
+                            swingsString[i] = "WA";
                         }
                         else if (swings[i] == 6){
-                            swings[i] = "A";
+                            swingsString[i] = "A";
                         }
                         else if (swings[i] == 7){
-                            swings[i] = "SA";
+                            swingsString[i] = "SA";
                         }
                         else if (swings[i] == 8){
-                            swings[i] = "H-SD";
+                            swingsString[i] = "H-SD";
                         }
                         else if (swings[i] == 9){
-                            swings[i] = "H-D";
+                            swingsString[i] = "H-D";
                         }
                         else if (swings[i] == 10){
-                            swings[i] = "H-WD";
-                        } 
+                            swingsString[i] = "H-WD";
+                        }
                         else if (swings[i] == 11){
-                            swings[i] = "H-W/S";
+                            swingsString[i] = "H-W/S";
                         }
                         else if (swings[i] == 12){
-                            swings[i] = "H-WA";
+                            swingsString[i] = "H-WA";
                         }
                         else if (swings[i] == 13){
-                            swings[i] = "H-A";
+                            swingsString[i] = "H-A";
                         }
                         else if (swings[i] == 14){
-                            swings[i] = "H-SA";
+                            swingsString[i] = "H-SA";
                         }
                     }
-                    document.getElementById("output").innerHTML = swings[0] + ", " + swings[1] + ", " + swings[2] + ", " + swings[3] + ", " + swings[4];
+                    document.getElementById("output").innerHTML = swingsString[0] + ", " + swingsString[1] + ", " + swingsString[2] + ", " + swingsString[3] + ", " + swingsString[4];
                 }
                 else if (selectedStyle.value == 3){
                     var swings = new Array(1, 3, 5);
+                    var swingsString = new Array("SD", "WD", "WA");
+                    var swingChanged = false;
                     swings[0] = Math.floor((Math.random() * 7) + 1);
                     if (document.getElementById("halfSwingRadio").checked == true)
                     {
@@ -268,10 +300,18 @@
                                 swings[i] = Math.floor((Math.random() * 7) + 8);
                             }
                             else{
+                                if (swings[i-1] > 7){
+                                    swings[i-1] -= 7;
+                                    swingChanged = true;
+                                }
                                 do {
                                     swings[i] = Math.floor((Math.random() * 7) + 1);
                                 }
                                 while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1 || swings[i] == swings[i-1] - 2 || swings[i] == swings[i-1] + 2 || swings[i] == swings[i-1] - 6  || swings[i] == swings[i-1] + 6);
+                                if (swingChanged == true){
+                                    swings[i-1] += 7;
+                                    swingChanged = false;
+                                }
                             }
                         }
                     }
@@ -286,52 +326,54 @@
                     }
                     for (i = 0; i <= 2; i++) {
                         if (swings[i] == 1){
-                            swings[i] = "SD";
+                            swingsString[i] = "SD";
                         }
                         else if (swings[i] == 2){
-                            swings[i] = "D";
+                            swingsString[i] = "D";
                         }
                         else if (swings[i] == 3){
-                            swings[i] = "WD";
+                            swingsString[i] = "WD";
                         }
                         else if (swings[i] == 4){
-                            swings[i] = "W/S";
+                            swingsString[i] = "W/S";
                         }
                         else if (swings[i] == 5){
-                            swings[i] = "WA";
+                            swingsString[i] = "WA";
                         }
                         else if (swings[i] == 6){
-                            swings[i] = "A";
+                            swingsString[i] = "A";
                         }
                         else if (swings[i] == 7){
-                            swings[i] = "SA";
+                            swingsString[i] = "SA";
                         }
                         else if (swings[i] == 8){
-                            swings[i] = "H-SD";
+                            swingsString[i] = "H-SD";
                         }
                         else if (swings[i] == 9){
-                            swings[i] = "H-D";
+                            swingsString[i] = "H-D";
                         }
                         else if (swings[i] == 10){
-                            swings[i] = "H-WD";
-                        } 
+                            swingsString[i] = "H-WD";
+                        }
                         else if (swings[i] == 11){
-                            swings[i] = "H-W/S";
+                            swingsString[i] = "H-W/S";
                         }
                         else if (swings[i] == 12){
-                            swings[i] = "H-WA";
+                            swingsString[i] = "H-WA";
                         }
                         else if (swings[i] == 13){
-                            swings[i] = "H-A";
+                            swingsString[i] = "H-A";
                         }
                         else if (swings[i] == 14){
-                            swings[i] = "H-SA";
+                            swingsString[i] = "H-SA";
                         }
                     }
-                    document.getElementById("output").innerHTML = swings[0] + ", " + swings[1] + ", " + swings[2];
+                    document.getElementById("output").innerHTML = swingsString[0] + ", " + swingsString[1] + ", " + swingsString[2];
                 }
                 else if(selectedStyle.value == 4){
                     var swings = new Array(1, 3, 5);
+                    var swingsString = new Array("SD", "WD", "WA");
+                    var swingChanged = false;
                     swings[0] = Math.floor((Math.random() * 7) + 1);
                     if (document.getElementById("halfSwingRadio").checked == true)
                     {
@@ -341,10 +383,18 @@
                                 swings[i] = Math.floor((Math.random() * 7) + 8);
                             }
                             else{
+                                if (swings[i-1] > 7){
+                                    swings[i-1] -= 7;
+                                    swingChanged = true;
+                                }
                                 do {
                                     swings[i] = Math.floor((Math.random() * 7) + 1);
                                 }
                                 while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1 || swings[i] == swings[i-1] - 1);
+                                if (swingChanged == true){
+                                    swings[i-1] += 7;
+                                    swingChanged = false;
+                                }
                             }
                         }
                     }
@@ -359,49 +409,49 @@
                     }
                     for (i = 0; i <= 2; i++) {
                         if (swings[i] == 1){
-                            swings[i] = "SD";
+                            swingsString[i] = "SD";
                         }
                         else if (swings[i] == 2){
-                            swings[i] = "D";
+                            swingsString[i] = "D";
                         }
                         else if (swings[i] == 3){
-                            swings[i] = "WD";
+                            swingsString[i] = "WD";
                         }
                         else if (swings[i] == 4){
-                            swings[i] = "W/S";
+                            swingsString[i] = "W/S";
                         }
                         else if (swings[i] == 5){
-                            swings[i] = "WA";
+                            swingsString[i] = "WA";
                         }
                         else if (swings[i] == 6){
-                            swings[i] = "A";
+                            swingsString[i] = "A";
                         }
                         else if (swings[i] == 7){
-                            swings[i] = "SA";
+                            swingsString[i] = "SA";
                         }
                         else if (swings[i] == 8){
-                            swings[i] = "H-SD";
+                            swingsString[i] = "H-SD";
                         }
                         else if (swings[i] == 9){
-                            swings[i] = "H-D";
+                            swingsString[i] = "H-D";
                         }
                         else if (swings[i] == 10){
-                            swings[i] = "H-WD";
-                        } 
+                            swingsString[i] = "H-WD";
+                        }
                         else if (swings[i] == 11){
-                            swings[i] = "H-W/S";
+                            swingsString[i] = "H-W/S";
                         }
                         else if (swings[i] == 12){
-                            swings[i] = "H-WA";
+                            swingsString[i] = "H-WA";
                         }
                         else if (swings[i] == 13){
-                            swings[i] = "H-A";
+                            swingsString[i] = "H-A";
                         }
                         else if (swings[i] == 14){
-                            swings[i] = "H-SA";
+                            swingsString[i] = "H-SA";
                         }
                     }
-                    document.getElementById("output").innerHTML = swings[0] + ", " + swings[1] + ", " + swings[2];
+                    document.getElementById("output").innerHTML = swingsString[0] + ", " + swingsString[1] + ", " + swingsString[2];
                 }
             }
 
