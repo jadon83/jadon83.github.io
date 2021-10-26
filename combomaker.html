@@ -1,0 +1,686 @@
+<!-- Movie Battles 2 Max Hit Combo Generator - Made By Jadon -->
+
+<!-- document type set to HTML -->
+<!doctype html>
+
+<!-- HTML language set to english -->
+<html lang="en">
+
+    <head>
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <!-- character set to utf-8 -->
+        <meta charset="utf-8">
+
+        <!-- title that will appear at the tab of your browser -->
+        <title>Combo Maker</title>
+
+    </head>
+
+    <!-- bootstrap class for styling across entire body -->
+    <body class="text-white bg-dark">
+        
+        <!-- Navigation Bar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand">Jadon's Website</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="index.html">Home</a>
+                    <a class="nav-item nav-link active" href="combomaker.html">Combo Maker</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- title of page -->
+        <h1> Combo Maker </h1>
+
+        <!-- credits to myself -->
+        <h4> Made By Jadon </h3>
+
+        <!-- descriptive p tag to tell the user how to use the page -->
+        <p> What Is This: This is a random combo generator for the game Movie Battles 2. <br> 
+        How To Use: Select your style, enable/disable half swings and yaw instructions, then press generate.</p>
+    
+        <!-- select a saber style from the choices -->
+        <select id="saberStyles">  
+            <option value="0"> Cyan </option>  
+            <option value="1"> Yellow/Blue/Staff </option>  
+            <option value="2"> Dualies </option>
+            <option value="3"> Red </option> 
+            <option value="4"> Purple </option> 
+        </select>
+
+        <br>
+
+        <!-- enable or disable half swings -->
+        <input type="checkbox" id="halfSwingRadio">
+        <label for="halfSwingRadio">Enable Half Swings</label>
+
+        <br>
+
+        <!-- enable or disable yaw instructions -->
+        <input type="checkbox" id="yawInstructionsRadio">
+        <label for="yawInstructionsRadio">Enable Yaw Instructions</label>
+
+        <br>
+
+        <!-- submit settings and create combo -->
+        <button onclick="makeCombo()">Generate</button>
+
+        <br>
+
+        <!-- holds the output of the generated combo -->
+        <h5 id="output"></h5>
+
+        <script>
+            
+            // makeCombo function will create the random combo to be displayed to the user based on the options they have selected
+            function makeCombo() {
+                // get the style the user has selected
+                var selectedStyle = document.getElementById("saberStyles");
+                // if the user chose Cyan execute this code
+                if (selectedStyle.value == 0){
+                    // array to hold the number values for the swings
+                    var swings = new Array(1, 3, 5, 7, 9, 11);
+                    // array to hold the string value for the swings
+                    var swingsString = new Array("SD", "WD", "WA", "SA", "H-D", "H-W/S");
+                    // boolean variable to tell if the swing has changed or not
+                    var swingChanged = false;
+                    // generate the first random swing (1-7)
+                    swings[0] = Math.floor((Math.random() * 7) + 1);
+                    // if using half swings use this code
+                    if (document.getElementById("halfSwingRadio").checked == true)
+                    {
+                        for (i = 1; i <= 5; i++) {
+                            isHalfSwing = Math.floor((Math.random() * 2) + 1);
+                            if (isHalfSwing == 1){
+                                swings[i] = Math.floor((Math.random() * 7) + 8);
+                            }
+                            else{
+                                if (swings[i-1] > 7){
+                                    swings[i-1] -= 7;
+                                    swingChanged = true;
+                                }
+                                do {
+                                    swings[i] = Math.floor((Math.random() * 7) + 1);
+                                }
+                                while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
+                                if (swingChanged == true){
+                                    swings[i-1] += 7;
+                                    swingChanged = false;
+                                }
+                            }
+                        }
+                    }
+                    // if not using half swings use this code
+                    else
+                    {
+                        for (i = 1; i <= 5; i++) {
+                            do {
+                                swings[i] = Math.floor((Math.random() * 7) + 1);
+                            }
+                            while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
+                        }
+                    }
+                    // get the string value for each swing using the number value
+                    for (i = 0; i <= 5; i++) {
+                        if (swings[i] == 1){
+                            swingsString[i] = "SD";
+                        }
+                        else if (swings[i] == 2){
+                            swingsString[i] = "D";
+                        }
+                        else if (swings[i] == 3){
+                            swingsString[i] = "WD";
+                        }
+                        else if (swings[i] == 4){
+                            swingsString[i] = "W/S";
+                        }
+                        else if (swings[i] == 5){
+                            swingsString[i] = "WA";
+                        }
+                        else if (swings[i] == 6){
+                            swingsString[i] = "A";
+                        }
+                        else if (swings[i] == 7){
+                            swingsString[i] = "SA";
+                        }
+                        else if (swings[i] == 8){
+                            swingsString[i] = "H-SD";
+                        }
+                        else if (swings[i] == 9){
+                            swingsString[i] = "H-D";
+                        }
+                        else if (swings[i] == 10){
+                            swingsString[i] = "H-WD";
+                        }
+                        else if (swings[i] == 11){
+                            swingsString[i] = "H-W/S";
+                        }
+                        else if (swings[i] == 12){
+                            swingsString[i] = "H-WA";
+                        }
+                        else if (swings[i] == 13){
+                            swingsString[i] = "H-A";
+                        }
+                        else if (swings[i] == 14){
+                            swingsString[i] = "H-SA";
+                        }
+                    }
+                    // if using yaw instructions execute this code
+                    if (document.getElementById("yawInstructionsRadio").checked == true){
+                        var yawType = new Array("fast", "slow", "normal", "fast", "slow", "normal");
+                        for (i = 0; i <= 5; i++){
+                            yawType[i] = Math.floor((Math.random() * 3) + 1);
+                            if (yawType[i] == 1){
+                                yawType[i] = "fast";
+                            }
+                            else if (yawType[i] == 2){
+                                yawType[i] = "slow";
+                            }
+                            else if (yawType[i] == 3){
+                                yawType[i] = "normal";
+                            }
+                        }
+                        // display the generated combo to the output
+                        document.getElementById("output").innerHTML = swingsString[0] + " " + yawType[0] + ", " + swingsString[1] + " " + yawType[1] + ", " + swingsString[2] + " " + yawType[2] + ", " + swingsString[3] + " " + yawType[3] + ", " + swingsString[4] + " " + yawType[4] + ", " + swingsString[5] + " " + yawType[5];
+                    }
+                    // if not using yaw instructions use this code instead
+                    else{
+                        // display the generated combo to the output
+                        document.getElementById("output").innerHTML = swingsString[0] + ", " + swingsString[1] + ", " + swingsString[2] + ", " + swingsString[3] + ", " + swingsString[4] + ", " + swingsString[5];
+                    }
+                }
+                // if the user chose Yellow/Blue/Staff execute this code
+                else if (selectedStyle.value == 1){
+                    // array to hold the number values for the swings
+                    var swings = new Array(1, 3, 5, 7);
+                    // array to hold the string value for the swings
+                    var swingsString = new Array("SD", "WD", "WA", "SA");
+                    // boolean variable to tell if the swing has changed or not
+                    var swingChanged = false;
+                    // generate the first random swing (1-7)
+                    swings[0] = Math.floor((Math.random() * 7) + 1);
+                    // if using half swings use this code
+                    if (document.getElementById("halfSwingRadio").checked == true)
+                    {
+                        for (i = 1; i <= 3; i++) {
+                            isHalfSwing = Math.floor((Math.random() * 2) + 1);
+                            if (isHalfSwing == 1){
+                                swings[i] = Math.floor((Math.random() * 7) + 8);
+                            }
+                            else{
+                                if (swings[i-1] > 7){
+                                    swings[i-1] -= 7;
+                                    swingChanged = true;
+                                }
+                                do {
+                                    swings[i] = Math.floor((Math.random() * 7) + 1);
+                                }
+                                while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
+                                if (swingChanged == true){
+                                    swings[i-1] += 7;
+                                    swingChanged = false;
+                                }
+                            }
+                        }
+                    }
+                    // if not using half swings use this code
+                    else
+                    {
+                        for (i = 1; i <= 3; i++) {
+                            do {
+                                swings[i] = Math.floor((Math.random() * 7) + 1);
+                            }
+                            while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
+                        }
+                    }
+                    // get the string value for each swing using the number value
+                    for (i = 0; i <= 3; i++) {
+                        if (swings[i] == 1){
+                            swingsString[i] = "SD";
+                        }
+                        else if (swings[i] == 2){
+                            swingsString[i] = "D";
+                        }
+                        else if (swings[i] == 3){
+                            swingsString[i] = "WD";
+                        }
+                        else if (swings[i] == 4){
+                            swingsString[i] = "W/S";
+                        }
+                        else if (swings[i] == 5){
+                            swingsString[i] = "WA";
+                        }
+                        else if (swings[i] == 6){
+                            swingsString[i] = "A";
+                        }
+                        else if (swings[i] == 7){
+                            swingsString[i] = "SA";
+                        }
+                        else if (swings[i] == 8){
+                            swingsString[i] = "H-SD";
+                        }
+                        else if (swings[i] == 9){
+                            swingsString[i] = "H-D";
+                        }
+                        else if (swings[i] == 10){
+                            swingsString[i] = "H-WD";
+                        }
+                        else if (swings[i] == 11){
+                            swingsString[i] = "H-W/S";
+                        }
+                        else if (swings[i] == 12){
+                            swingsString[i] = "H-WA";
+                        }
+                        else if (swings[i] == 13){
+                            swingsString[i] = "H-A";
+                        }
+                        else if (swings[i] == 14){
+                            swingsString[i] = "H-SA";
+                        }
+                    }
+                    // if using yaw instructions execute this code
+                    if (document.getElementById("yawInstructionsRadio").checked == true){
+                        var yawType = new Array("fast", "slow", "normal", "fast", "slow", "normal");
+                        for (i = 0; i <= 3; i++){
+                            yawType[i] = Math.floor((Math.random() * 3) + 1);
+                            if (yawType[i] == 1){
+                                yawType[i] = "fast";
+                            }
+                            else if (yawType[i] == 2){
+                                yawType[i] = "slow";
+                            }
+                            else if (yawType[i] == 3){
+                                yawType[i] = "normal";
+                            }
+                        }
+                        // display the generated combo to the output
+                        document.getElementById("output").innerHTML = swingsString[0] + " " + yawType[0] + ", " + swingsString[1] + " " + yawType[1] + ", " + swingsString[2] + " " + yawType[2] + ", " + swingsString[3] + " " + yawType[3];
+                    }
+                    // if not using yaw instructions use this code instead
+                    else{
+                        // display the generated combo to the output
+                        document.getElementById("output").innerHTML = swingsString[0] + ", " + swingsString[1] + ", " + swingsString[2] + ", " + swingsString[3];
+                    }
+                }
+                // if the user chose Dualies execute this code
+                else if (selectedStyle.value == 2){
+                    // array to hold the number values for the swings
+                    var swings = new Array(1, 3, 5, 7, 9);
+                    // array to hold the string value for the swings
+                    var swingsString = new Array("SD", "WD", "WA", "SA", "H-D");
+                    // boolean variable to tell if the swing has changed or not
+                    var swingChanged = false;
+                    // generate the first random swing (1-7)
+                    swings[0] = Math.floor((Math.random() * 7) + 1);
+                    // if using half swings use this code
+                    if (document.getElementById("halfSwingRadio").checked == true)
+                    {
+                        for (i = 1; i <= 4; i++) {
+                            isHalfSwing = Math.floor((Math.random() * 2) + 1);
+                            if (isHalfSwing == 1){
+                                swings[i] = Math.floor((Math.random() * 7) + 8);
+                            }
+                            else{
+                                if (swings[i-1] > 7){
+                                    swings[i-1] -= 7;
+                                    swingChanged = true;
+                                }
+                                do {
+                                    swings[i] = Math.floor((Math.random() * 7) + 1);
+                                }
+                                while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
+                                if (swingChanged == true){
+                                    swings[i-1] += 7;
+                                    swingChanged = false;
+                                }
+                            }
+                        }
+                    }
+                    // if not using half swings use this code
+                    else
+                    {
+                        for (i = 1; i <= 4; i++) {
+                            do {
+                                swings[i] = Math.floor((Math.random() * 7) + 1);
+                            }
+                            while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
+                        }
+                    }
+                    // get the string value for each swing using the number value
+                    for (i = 0; i <= 4; i++) {
+                        if (swings[i] == 1){
+                            swingsString[i] = "SD";
+                        }
+                        else if (swings[i] == 2){
+                            swingsString[i] = "D";
+                        }
+                        else if (swings[i] == 3){
+                            swingsString[i] = "WD";
+                        }
+                        else if (swings[i] == 4){
+                            swingsString[i] = "W/S";
+                        }
+                        else if (swings[i] == 5){
+                            swingsString[i] = "WA";
+                        }
+                        else if (swings[i] == 6){
+                            swingsString[i] = "A";
+                        }
+                        else if (swings[i] == 7){
+                            swingsString[i] = "SA";
+                        }
+                        else if (swings[i] == 8){
+                            swingsString[i] = "H-SD";
+                        }
+                        else if (swings[i] == 9){
+                            swingsString[i] = "H-D";
+                        }
+                        else if (swings[i] == 10){
+                            swingsString[i] = "H-WD";
+                        }
+                        else if (swings[i] == 11){
+                            swingsString[i] = "H-W/S";
+                        }
+                        else if (swings[i] == 12){
+                            swingsString[i] = "H-WA";
+                        }
+                        else if (swings[i] == 13){
+                            swingsString[i] = "H-A";
+                        }
+                        else if (swings[i] == 14){
+                            swingsString[i] = "H-SA";
+                        }
+                    }
+                    // if using yaw instructions execute this code
+                    if (document.getElementById("yawInstructionsRadio").checked == true){
+                        var yawType = new Array("fast", "slow", "normal", "fast", "slow", "normal");
+                        for (i = 0; i <= 4; i++){
+                            yawType[i] = Math.floor((Math.random() * 3) + 1);
+                            if (yawType[i] == 1){
+                                yawType[i] = "fast";
+                            }
+                            else if (yawType[i] == 2){
+                                yawType[i] = "slow";
+                            }
+                            else if (yawType[i] == 3){
+                                yawType[i] = "normal";
+                            }
+                        }
+                        // display the generated combo to the output
+                        document.getElementById("output").innerHTML = swingsString[0] + " " + yawType[0] + ", " + swingsString[1] + " " + yawType[1] + ", " + swingsString[2] + " " + yawType[2] + ", " + swingsString[3] + " " + yawType[3] + ", " + swingsString[4] + " " + yawType[4];
+                    }
+                    // if not using yaw instructions use this code instead
+                    else{
+                        // display the generated combo to the output
+                        document.getElementById("output").innerHTML = swingsString[0] + ", " + swingsString[1] + ", " + swingsString[2] + ", " + swingsString[3] + ", " + swingsString[4];
+                    }
+                }
+                // if the user chose Red execute this code
+                else if (selectedStyle.value == 3){
+                    // array to hold the number values for the swings
+                    var swings = new Array(1, 3, 5);
+                    // array to hold the string value for the swings
+                    var swingsString = new Array("SD", "WD", "WA");
+                    // boolean variable to tell if the swing has changed or not
+                    var swingChanged = false;
+                    // generate the first random swing (1-7)
+                    swings[0] = Math.floor((Math.random() * 7) + 1);
+                    // if using half swings use this code
+                    if (document.getElementById("halfSwingRadio").checked == true)
+                    {
+                        for (i = 1; i <= 2; i++) {
+                            isHalfSwing = Math.floor((Math.random() * 2) + 1);
+                            if (isHalfSwing == 1){
+                                swings[i] = Math.floor((Math.random() * 7) + 8);
+                            }
+                            else{
+                                if (swings[i-1] > 7){
+                                    swings[i-1] -= 7;
+                                    swingChanged = true;
+                                }
+                                do {
+                                    swings[i] = Math.floor((Math.random() * 7) + 1);
+                                }
+                                while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1 || swings[i] == swings[i-1] - 2 || swings[i] == swings[i-1] + 2 || swings[i] == swings[i-1] - 6  || swings[i] == swings[i-1] + 6);
+                                if (swingChanged == true){
+                                    swings[i-1] += 7;
+                                    swingChanged = false;
+                                }
+                            }
+                        }
+                    }
+                    // if not using half swings use this code
+                    else
+                    {
+                        for (i = 1; i <= 2; i++) {
+                            do {
+                                swings[i] = Math.floor((Math.random() * 7) + 1);
+                            }
+                            while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1 || swings[i] == swings[i-1] - 2 || swings[i] == swings[i-1] + 2 || swings[i] == swings[i-1] - 6  || swings[i] == swings[i-1] + 6);
+                        }
+                    }
+                    // get the string value for each swing using the number value
+                    for (i = 0; i <= 2; i++) {
+                        if (swings[i] == 1){
+                            swingsString[i] = "SD";
+                        }
+                        else if (swings[i] == 2){
+                            swingsString[i] = "D";
+                        }
+                        else if (swings[i] == 3){
+                            swingsString[i] = "WD";
+                        }
+                        else if (swings[i] == 4){
+                            swingsString[i] = "W/S";
+                        }
+                        else if (swings[i] == 5){
+                            swingsString[i] = "WA";
+                        }
+                        else if (swings[i] == 6){
+                            swingsString[i] = "A";
+                        }
+                        else if (swings[i] == 7){
+                            swingsString[i] = "SA";
+                        }
+                        else if (swings[i] == 8){
+                            swingsString[i] = "H-SD";
+                        }
+                        else if (swings[i] == 9){
+                            swingsString[i] = "H-D";
+                        }
+                        else if (swings[i] == 10){
+                            swingsString[i] = "H-WD";
+                        }
+                        else if (swings[i] == 11){
+                            swingsString[i] = "H-W/S";
+                        }
+                        else if (swings[i] == 12){
+                            swingsString[i] = "H-WA";
+                        }
+                        else if (swings[i] == 13){
+                            swingsString[i] = "H-A";
+                        }
+                        else if (swings[i] == 14){
+                            swingsString[i] = "H-SA";
+                        }
+                    }
+                    // if using yaw instructions execute this code
+                    if (document.getElementById("yawInstructionsRadio").checked == true){
+                        var yawType = new Array("fast", "slow", "normal", "fast", "slow", "normal");
+                        for (i = 0; i <= 2; i++){
+                            yawType[i] = Math.floor((Math.random() * 3) + 1);
+                            if (yawType[i] == 1){
+                                yawType[i] = "fast";
+                            }
+                            else if (yawType[i] == 2){
+                                yawType[i] = "slow";
+                            }
+                            else if (yawType[i] == 3){
+                                yawType[i] = "normal";
+                            }
+                        }
+                        // display the generated combo to the output
+                        document.getElementById("output").innerHTML = swingsString[0] + " " + yawType[0] + ", " + swingsString[1] + " " + yawType[1] + ", " + swingsString[2] + " " + yawType[2];
+                    }
+                    // if not using yaw instructions use this code instead
+                    else{
+                        // display the generated combo to the output
+                        document.getElementById("output").innerHTML = swingsString[0] + ", " + swingsString[1] + ", " + swingsString[2];
+                    }
+                }
+                // if the user chose Purple execute this code
+                else if(selectedStyle.value == 4){
+                    // array to hold the number values for the swings
+                    var swings = new Array(1, 3, 5);
+                    // array to hold the string value for the swings
+                    var swingsString = new Array("SD", "WD", "WA");
+                    // boolean variable to tell if the swing has changed or not
+                    var swingChanged = false;
+                    // generate the first random swing (1-7)
+                    swings[0] = Math.floor((Math.random() * 7) + 1);
+                    // if using half swings use this code
+                    if (document.getElementById("halfSwingRadio").checked == true)
+                    {
+                        for (i = 1; i <= 2; i++) {
+                            isHalfSwing = Math.floor((Math.random() * 2) + 1);
+                            if (isHalfSwing == 1){
+                                swings[i] = Math.floor((Math.random() * 7) + 8);
+                            }
+                            else{
+                                if (swings[i-1] > 7){
+                                    swings[i-1] -= 7;
+                                    swingChanged = true;
+                                }
+                                do {
+                                    swings[i] = Math.floor((Math.random() * 7) + 1);
+                                }
+                                while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
+                                if (swingChanged == true){
+                                    swings[i-1] += 7;
+                                    swingChanged = false;
+                                }
+                            }
+                        }
+                    }
+                    // if not using half swings use this code
+                    else
+                    {
+                        for (i = 1; i <= 2; i++) {
+                            do {
+                                swings[i] = Math.floor((Math.random() * 7) + 1);
+                            }
+                            while (swings[i] == swings[i-1] || swings[i] == swings[i-1] + 1 || swings[i] == swings[i-1] - 1);
+                        }
+                    }
+                    // get the string value for each swing using the number value
+                    for (i = 0; i <= 2; i++) {
+                        if (swings[i] == 1){
+                            swingsString[i] = "SD";
+                        }
+                        else if (swings[i] == 2){
+                            swingsString[i] = "D";
+                        }
+                        else if (swings[i] == 3){
+                            swingsString[i] = "WD";
+                        }
+                        else if (swings[i] == 4){
+                            swingsString[i] = "W/S";
+                        }
+                        else if (swings[i] == 5){
+                            swingsString[i] = "WA";
+                        }
+                        else if (swings[i] == 6){
+                            swingsString[i] = "A";
+                        }
+                        else if (swings[i] == 7){
+                            swingsString[i] = "SA";
+                        }
+                        else if (swings[i] == 8){
+                            swingsString[i] = "H-SD";
+                        }
+                        else if (swings[i] == 9){
+                            swingsString[i] = "H-D";
+                        }
+                        else if (swings[i] == 10){
+                            swingsString[i] = "H-WD";
+                        }
+                        else if (swings[i] == 11){
+                            swingsString[i] = "H-W/S";
+                        }
+                        else if (swings[i] == 12){
+                            swingsString[i] = "H-WA";
+                        }
+                        else if (swings[i] == 13){
+                            swingsString[i] = "H-A";
+                        }
+                        else if (swings[i] == 14){
+                            swingsString[i] = "H-SA";
+                        }
+                    }
+                    // if using yaw instructions execute this code
+                    if (document.getElementById("yawInstructionsRadio").checked == true){
+                        var yawType = new Array("fast", "slow", "normal", "fast", "slow", "normal");
+                        for (i = 0; i <= 2; i++){
+                            yawType[i] = Math.floor((Math.random() * 3) + 1);
+                            if (yawType[i] == 1){
+                                yawType[i] = "fast";
+                            }
+                            else if (yawType[i] == 2){
+                                yawType[i] = "slow";
+                            }
+                            else if (yawType[i] == 3){
+                                yawType[i] = "normal";
+                            }
+                        }
+                        // display the generated combo to the output
+                        document.getElementById("output").innerHTML = swingsString[0] + " " + yawType[0] + ", " + swingsString[1] + " " + yawType[1] + ", " + swingsString[2] + " " + yawType[2];
+                    }
+                    // if not using yaw instructions use this code instead
+                    else{
+                        // display the generated combo to the output
+                        document.getElementById("output").innerHTML = swingsString[0] + ", " + swingsString[1] + ", " + swingsString[2];
+                    }
+                }
+            }
+
+        </script>
+
+        <!-- Bootstrap scripts -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <!-- styling for page -->
+        <style>
+
+            /* style everything with these rules */
+            * {
+                text-align-last: center;
+            }
+
+            /* style only the output with these rules */
+            #output{
+                margin: 10px;
+                border: 1px solid white;
+                color: cyan;
+                display:inline-block;
+                white-space: nowrap;
+                padding: 5px;
+            }
+
+        </style>
+
+    </body>
+
+</html>
